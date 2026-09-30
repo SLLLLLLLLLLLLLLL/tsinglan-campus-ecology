@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>清澜山校园花鸟漫游 | Tsinglan Campus Ecology</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%235fe8c8'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 全屏游戏画布 -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- 顶部 HUD：操作提示 -->
+  <div id="hud" class="hud">
+    <div class="hud-left">
+      <h1>清澜山校园花鸟漫游</h1>
+      <p>在黑夜中探索校园，靠近发光的植物或鸟儿，点击淡黄色光晕查看资料。</p>
+    </div>
+    <div class="hud-right">
+      <div class="key"><span>A</span><span>D</span> 移动</div>
+      <div class="key"><span>SPACE</span> 跳跃 / 二段跳</div>
+      <div class="key"><span>贴墙 + SPACE</span> 蹬墙跳</div>
+      <div class="key"><span>鼠标点击光晕</span> 查看信息</div>
+    </div>
+  </div>
+
+  <!-- 信息卡浮层 -->
+  <div id="infoPanel" class="info-panel hidden">
+    <button id="closePanel" class="close-btn" aria-label="关闭">×</button>
+    <div id="infoContent" class="info-content"></div>
+  </div>
+
+  <!-- 底部统计 -->
+  <div id="stats" class="stats">
+    <span id="plantCount">已发现植物：0 / 0</span>
+    <span id="birdCount">已发现鸟类：0 / 0</span>
+  </div>
+
+  <!-- 点击提示（靠近可互动对象时显示） -->
+  <div id="hoverTip" class="hover-tip hidden">点击查看资料</div>
+
+  <script src="data.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
