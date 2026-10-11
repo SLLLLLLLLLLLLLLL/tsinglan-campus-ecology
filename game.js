@@ -13,7 +13,7 @@
   // ---------------------------------------------------------------------------
   // 世界配置
   // ---------------------------------------------------------------------------
-  const WORLD_WIDTH = 5600;
+  const WORLD_WIDTH = 6400;
   const WORLD_HEIGHT = 1800;
   const GROUND_Y = 1450;
   const VIEW_W = () => canvas.width;
@@ -30,41 +30,44 @@
   // 颜色取真实校园偏暖色调（米黄/砖红/灰白），不再全黑；窗户大幅减少。
   // ---------------------------------------------------------------------------
   // 连体基座（DBCA 共用裙楼）
-  const blockBase = { x: 740, w: 1380, h: 60, y: GROUND_Y, color: '#2a2620', glow: '#5a4a35' };
+  const blockBase = { x: 1120, w: 1380, h: 60, y: GROUND_Y, color: '#2a2620', glow: '#5a4a35' };
   const buildings = [
     { label: 'H 明斋',           x: 120,  w: 300, h: 280, color: '#3a3428', glow: '#7a6a4a', win:'#caa86a', roof:'#4a3f2e' },
-    { label: 'G 和园',           x: 460,  w: 220, h: 170, color: '#384042', glow: '#6a7a80', win:'#a8c0d0', roof:'#4a5258' },
-    { label: 'A 启超楼',         x: 740,  w: 420, h: 460, color: '#5a4a3a', glow: '#9a8a6a', win:'#e8d8a8', roof:'#6a5a48', linked:true },
-    { label: 'B 元任楼',         x: 1160, w: 440, h: 520, color: '#6a4038', glow: '#a06a5a', win:'#e8b8a0', roof:'#7a4a40', linked:true },
-    { label: 'C 寅恪楼',         x: 1600, w: 400, h: 440, color: '#4a4450', glow: '#7a7088', win:'#c0b8d8', roof:'#5a5260', linked:true },
-    { label: 'D 国维楼',         x: 2000, w: 440, h: 500, color: '#3a4848', glow: '#6a8080', win:'#a8c8c8', roof:'#4a5a58', linked:true },
-    { label: 'F 水木艺术中心',   x: 2480, w: 300, h: 230, color: '#484048', glow: '#807088', win:'#c8b8d0', roof:'#585058' },
-    { label: 'E 马约翰体育中心', x: 2840, w: 560, h: 380, color: '#4a4438', glow: '#7a6e5a', win:'#d0c0a0', roof:'#5a5048' }
+    { label: 'G 和园',           x: 640,  w: 220, h: 170, color: '#384042', glow: '#6a7a80', win:'#a8c0d0', roof:'#4a5258' },
+    { label: 'A 启超楼',         x: 1120, w: 420, h: 460, color: '#5a4a3a', glow: '#9a8a6a', win:'#e8d8a8', roof:'#6a5a48', linked:true },
+    { label: 'B 元任楼',         x: 1540, w: 440, h: 520, color: '#6a4038', glow: '#a06a5a', win:'#e8b8a0', roof:'#7a4a40', linked:true },
+    { label: 'C 寅恪楼',         x: 1980, w: 400, h: 440, color: '#4a4450', glow: '#7a7088', win:'#c0b8d8', roof:'#5a5260', linked:true },
+    { label: 'D 国维楼',         x: 2380, w: 440, h: 500, color: '#3a4848', glow: '#6a8080', win:'#a8c8c8', roof:'#4a5a58', linked:true },
+    { label: 'F 水木艺术中心',   x: 3120, w: 300, h: 230, color: '#484048', glow: '#807088', win:'#c8b8d0', roof:'#585058' },
+    { label: 'E 马约翰体育中心', x: 3520, w: 560, h: 380, color: '#4a4438', glow: '#7a6e5a', win:'#d0c0a0', roof:'#5a5048' }
   ].map(b => ({ ...b, y: GROUND_Y }));
 
   // 连廊（DBCA 之间的天桥，连通四栋楼）
   const linkways = [
-    { x: 1160, y: GROUND_Y - 200, w: 60, h: 40, color: '#3a3026', glow: '#6a5a40' }, // A-B 连廊
-    { x: 1600, y: GROUND_Y - 180, w: 60, h: 40, color: '#3a3026', glow: '#6a5a40' }, // B-C 连廊
-    { x: 2000, y: GROUND_Y - 200, w: 60, h: 40, color: '#3a3026', glow: '#6a5a40' }  // C-D 连廊
+    { x: 1540, y: GROUND_Y - 200, w: 60, h: 40, color: '#3a3026', glow: '#6a5a40' }, // A-B 连廊
+    { x: 1980, y: GROUND_Y - 180, w: 60, h: 40, color: '#3a3026', glow: '#6a5a40' }, // B-C 连廊
+    { x: 2380, y: GROUND_Y - 200, w: 60, h: 40, color: '#3a3026', glow: '#6a5a40' }  // C-D 连廊
   ];
 
   // 地面 / 屋顶 / 平台
   const platforms = [
     { x: 0, y: GROUND_Y, w: WORLD_WIDTH, h: 400, ground: true },   // 全图地面
-    // 各楼屋顶（可上去）
-    { x: 140,  y: GROUND_Y - 280, w: 260, h: 12, roof: true },
-    { x: 760,  y: GROUND_Y - 460, w: 380, h: 12, roof: true },
-    { x: 1180, y: GROUND_Y - 520, w: 400, h: 12, roof: true },
-    { x: 1620, y: GROUND_Y - 440, w: 360, h: 12, roof: true },
-    { x: 2020, y: GROUND_Y - 500, w: 400, h: 12, roof: true },
-    { x: 2500, y: GROUND_Y - 230, w: 260, h: 12, roof: true },
-    { x: 2860, y: GROUND_Y - 380, w: 520, h: 12, roof: true },
-    // 草坡土台（有厚度、不悬浮、颜色提亮，便于站立与区分背景）
-    { x: 600,  y: GROUND_Y - 180, w: 120, h: 180, mound: true },
-    { x: 3700, y: GROUND_Y - 140, w: 140, h: 140, mound: true },
-    { x: 4040, y: GROUND_Y - 220, w: 130, h: 220, mound: true },
-    { x: 4400, y: GROUND_Y - 160, w: 130, h: 160, mound: true }
+    // 各楼屋顶（可上去）—— 对齐建筑新位置
+    { x: 140,  y: GROUND_Y - 280, w: 260, h: 12, roof: true },   // H
+    { x: 660,  y: GROUND_Y - 170, w: 200, h: 12, roof: true },   // G
+    { x: 1140, y: GROUND_Y - 460, w: 380, h: 12, roof: true },   // A
+    { x: 1560, y: GROUND_Y - 520, w: 400, h: 12, roof: true },   // B
+    { x: 2000, y: GROUND_Y - 440, w: 360, h: 12, roof: true },   // C
+    { x: 2400, y: GROUND_Y - 500, w: 400, h: 12, roof: true },   // D
+    { x: 3140, y: GROUND_Y - 230, w: 260, h: 12, roof: true },   // F
+    { x: 3540, y: GROUND_Y - 380, w: 520, h: 12, roof: true },   // E
+    // 草坡土台（有厚度、不悬浮、颜色提亮，置于楼间空地）
+    { x: 440,  y: GROUND_Y - 100, w: 140, h: 100, mound: true },  // H-G 之间
+    { x: 900,  y: GROUND_Y - 120, w: 140, h: 120, mound: true },  // G-A 之间
+    { x: 2860, y: GROUND_Y - 110, w: 140, h: 110, mound: true },  // D-F 之间
+    { x: 4250, y: GROUND_Y - 140, w: 140, h: 140, mound: true },
+    { x: 4600, y: GROUND_Y - 220, w: 130, h: 220, mound: true },
+    { x: 4960, y: GROUND_Y - 160, w: 130, h: 160, mound: true }
   ];
 
   // 墙体（蹬墙跳用）—— 仅楼体两侧
@@ -112,25 +115,94 @@
     return slots;
   }
 
-  // 37 个均匀点位：全部在地面或土台上（无屋顶），避免树上屋顶
-  function buildPlantSpots() {
-    const slots = groundSlots();
-    const groundCount = 33; // 与 mound 4 合计 37
-    const step = Math.floor(slots.length / groundCount);
-    const groundPts = [];
-    for (let i = 0; i < groundCount && i * step < slots.length; i++) {
-      groundPts.push({ x: slots[i * step], y: GROUND_Y, kind: 'ground' });
-    }
-    const moundPts = [
-      { x: 660,  y: GROUND_Y - 180, kind: 'mound' },
-      { x: 3760, y: GROUND_Y - 140, kind: 'mound' },
-      { x: 4100, y: GROUND_Y - 220, kind: 'mound' },
-      { x: 4460, y: GROUND_Y - 160, kind: 'mound' }
-    ];
-    return [...groundPts, ...moundPts];
+  // 把一个 x 推出楼体到最近的楼外空地（用于避让）
+  function pushOutOfBuilding(x, preferDir = 0) {
+    if (!inAnyBuilding(x)) return x;
+    let xl = x, xr = x;
+    while (xl > 60 && inAnyBuilding(xl)) xl -= 8;
+    while (xr < WORLD_WIDTH - 60 && inAnyBuilding(xr)) xr += 8;
+    const xlOk = xl > 60, xrOk = xr < WORLD_WIDTH - 60;
+    if (preferDir < 0 && xlOk) return xl;
+    if (preferDir > 0 && xrOk) return xr;
+    if (xlOk && !xrOk) return xl;
+    if (xrOk && !xlOk) return xr;
+    if (xlOk && xrOk) return (x - xl) <= (xr - x) ? xl : xr;
+    return x;
   }
 
-  const plantSpots = buildPlantSpots();
+  // 收集所有"楼外可用区段"（连续的楼外 x 区间）
+  function getFreeSegments() {
+    const segs = [];
+    let segStart = null;
+    for (let x = 60; x < WORLD_WIDTH - 60; x += 10) {
+      if (!inAnyBuilding(x)) {
+        if (segStart === null) segStart = x;
+      } else {
+        if (segStart !== null) { segs.push([segStart, x - 10]); segStart = null; }
+      }
+    }
+    if (segStart !== null) segs.push([segStart, WORLD_WIDTH - 70]);
+    return segs;
+  }
+
+  // 收集所有可放置植物的点：地面楼外 + 屋顶平台 + 土台
+  function collectWalkableSpots() {
+    const allPts = [];
+    for (let x = 90; x <= WORLD_WIDTH - 90; x += 20) {
+      if (!inAnyBuilding(x)) allPts.push({ x, y: GROUND_Y, kind: 'ground' });
+    }
+    platforms.filter(p => p.roof).forEach(p => {
+      const n = Math.max(2, Math.floor(p.w / 90));
+      const gap = p.w / n;
+      for (let k = 0; k < n; k++) {
+        allPts.push({ x: Math.round(p.x + gap * (k + 0.5)), y: p.y, kind: 'roof' });
+      }
+    });
+    platforms.filter(p => p.mound).forEach(p => {
+      allPts.push({ x: Math.round(p.x + p.w / 2), y: p.y, kind: 'mound' });
+    });
+    allPts.sort((a, b) => a.x - b.x);
+    return allPts;
+  }
+
+  // 37 个植物点位：地面楼外点 + 各楼屋顶点混合，用贪心"最大空隙优先"
+  // 在 x 轴上均匀铺开。屋顶点 y 为楼顶高度，植物放屋顶既贴地又不进楼。
+  function buildPlantSpots(allPts) {
+    const TOTAL = 37;
+    let minGap = 80;
+    let selected = [];
+    while (selected.length < TOTAL && minGap >= 50) {
+      selected = allPts.filter(p => p.kind === 'roof' || p.kind === 'mound');
+      const leftGround = allPts.filter(p => p.kind === 'ground');
+      if (leftGround.length) { selected.unshift(leftGround[0]); selected.push(leftGround[leftGround.length - 1]); }
+      selected.sort((a, b) => a.x - b.x);
+      const seen = new Set();
+      selected = selected.filter(p => { if (seen.has(p.x)) return false; seen.add(p.x); return true; });
+      while (selected.length < TOTAL) {
+        let bestGap = 0, bestA = null, bestB = null;
+        for (let i = 0; i < selected.length - 1; i++) {
+          const g = selected[i + 1].x - selected[i].x;
+          if (g > bestGap) { bestGap = g; bestA = selected[i]; bestB = selected[i + 1]; }
+        }
+        if (bestGap < minGap * 2) break;
+        const mid = (bestA.x + bestB.x) / 2;
+        let chosen = null, chosenDist = Infinity;
+        for (const c of allPts) {
+          if (selected.some(s => Math.abs(s.x - c.x) < minGap)) continue;
+          const d = Math.abs(c.x - mid);
+          if (d < chosenDist) { chosenDist = d; chosen = c; }
+        }
+        if (!chosen) break;
+        selected.push(chosen);
+        selected.sort((a, b) => a.x - b.x);
+      }
+      if (selected.length < TOTAL) minGap -= 10;
+    }
+    return selected.slice(0, TOTAL);
+  }
+
+  const allWalkableSpots = collectWalkableSpots();
+  const plantSpots = buildPlantSpots(allWalkableSpots);
 
   const plants = PLANT_NAMES.map((data, i) => {
     const spot = plantSpots[i % plantSpots.length];
@@ -141,7 +213,7 @@
       x: spot.x,
       y: spot.y,
       baseY: spot.y,
-      kind: spot.kind,            // ground | mound
+      kind: spot.kind,            // ground | mound | roof
       isTree,                     // 乔木（大树）vs 灌木/小乔（灌草丛）
       width: isTree ? 54 : 40,
       height: isTree ? 116 : 56,
@@ -152,12 +224,36 @@
     };
   });
 
-  // 鸟类：8 只，均匀分布在楼外空地上
-  const birdSlots = groundSlots();
-  const birdStep = Math.floor(birdSlots.length / 8);
+  // 鸟类：8 只，从地面/土台候选点中用"最大空隙优先"选 8 个，均匀分布。
   const birdSpots = [];
-  for (let i = 0; i < 8 && i * birdStep < birdSlots.length; i++) {
-    birdSpots.push({ x: birdSlots[i * birdStep], y: GROUND_Y });
+  {
+    const birdPts = allWalkableSpots.filter(p => p.kind !== 'roof');
+    let bminGap = 100;
+    while (birdSpots.length < 8 && bminGap >= 60) {
+      birdSpots.length = 0;
+      // 锚点：最左、最右地面
+      const ground = birdPts.filter(p => p.kind === 'ground');
+      if (ground.length) { birdSpots.push(ground[0]); birdSpots.push(ground[ground.length - 1]); }
+      while (birdSpots.length < 8) {
+        let bestGap = 0, bestA = null, bestB = null;
+        for (let i = 0; i < birdSpots.length - 1; i++) {
+          const g = birdSpots[i + 1].x - birdSpots[i].x;
+          if (g > bestGap) { bestGap = g; bestA = birdSpots[i]; bestB = birdSpots[i + 1]; }
+        }
+        if (bestGap < bminGap * 2) break;
+        const mid = (bestA.x + bestB.x) / 2;
+        let chosen = null, chosenDist = Infinity;
+        for (const c of birdPts) {
+          if (birdSpots.some(s => Math.abs(s.x - c.x) < bminGap)) continue;
+          const d = Math.abs(c.x - mid);
+          if (d < chosenDist) { chosenDist = d; chosen = c; }
+        }
+        if (!chosen) break;
+        birdSpots.push(chosen);
+        birdSpots.sort((a, b) => a.x - b.x);
+      }
+      if (birdSpots.length < 8) bminGap -= 10;
+    }
   }
 
   const birds = BIRD_NAMES.map((data, i) => {
